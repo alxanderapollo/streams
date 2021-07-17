@@ -4,7 +4,6 @@ import {connect} from 'react-redux';
 import {signIn, signOut} from '../actions'
 class GoogleAuth extends React.Component {
 //null because we dont know if the user is signed in or not when the app loads
-  state = { isSignedIn: null };
 
   componentDidMount() {
         //the below information is just to inialize the library
@@ -24,8 +23,9 @@ class GoogleAuth extends React.Component {
         .then(() => {
         ///updates our level compoennt with this.auth OBJ
           this.auth = window.gapi.auth2.getAuthInstance();
-           this.setState({ isSignedIn: this.auth.isSignedIn.get() }); //get authentication status
-        
+          //at initlization, we check the users current status 
+          this.onAuthChange(this.auth.isSignedIn.get())
+          //wait to see if user status changes
           this.auth.isSignedIn.listen(this.onAuthChange);
         });
     });
@@ -55,9 +55,9 @@ class GoogleAuth extends React.Component {
 
     //helper method to let us know whether the user isgned in or not 
   renderAuthButton() {
-    if (this.state.isSignedIn === null) {
+    if (this.props.isSignedIn === null) {
       return null;
-    } else if (this.state.isSignedIn) {
+    } else if (this.props.isSignedIn) {
       return (<button onClick={this.onSignOutClick} className="ui red google button">
           <i className=" google icon">
             Sign Out
@@ -77,6 +77,12 @@ class GoogleAuth extends React.Component {
     return <div>{this.renderAuthButton()}</div>;
   }
 }
+const mapStateToProps = (state) => {
+  return {isSignedIn:state.auth.isSignedIn}
+
+}
+
+
 //connecting our actions to this component
 //since we currently dont have a map to state function we pass null
-export default connect(null, {signIn, signOut})(GoogleAuth);
+export default connect(mapStateToProps, {signIn, signOut})(GoogleAuth);
