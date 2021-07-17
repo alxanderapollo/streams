@@ -1,5 +1,7 @@
 //gapi documentation
 import React from 'react';
+import {connect} from 'react-redux';
+import {signIn, signOut} from '../actions'
 class GoogleAuth extends React.Component {
 //null because we dont know if the user is signed in or not when the app loads
   state = { isSignedIn: null };
@@ -22,16 +24,22 @@ class GoogleAuth extends React.Component {
         .then(() => {
         ///updates our level compoennt with this.auth OBJ
           this.auth = window.gapi.auth2.getAuthInstance();
-        //   this.setState({ isSignedIn: this.auth.isSignedIn.get() }); //get authentication status
-        this.onAuthChange();
+           this.setState({ isSignedIn: this.auth.isSignedIn.get() }); //get authentication status
+        
           this.auth.isSignedIn.listen(this.onAuthChange);
         });
     });
   } 
   //called everytime the user status changes
-    onAuthChange = () => {
+    onAuthChange = (isSignedIn) => {
         //this.auth object is what refrences the users object
-        this.setState({ isSignedIn:this.auth.isSignedIn.get()})
+        // this.setState({ isSignedIn:this.auth.isSignedIn.get()})
+        //Redux
+        if(isSignedIn){
+            this.props.signIn();
+        }else{
+            this.props.signOut();
+        }
 
     }
 
@@ -54,7 +62,8 @@ class GoogleAuth extends React.Component {
           <i className=" google icon">
             Sign Out
           </i>
-          </button>);
+          </button>
+          );
     } else {
         return (<button onClick={this.onSignInClick} className="ui red google button">
         <i className=" google icon">
@@ -68,5 +77,6 @@ class GoogleAuth extends React.Component {
     return <div>{this.renderAuthButton()}</div>;
   }
 }
-
-export default GoogleAuth;
+//connecting our actions to this component
+//since we currently dont have a map to state function we pass null
+export default connect(null, {signIn, signOut})(GoogleAuth);
