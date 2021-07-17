@@ -1,5 +1,6 @@
 //Action for signing in and out
 //to determine whether the user is signed in or not
+import { SIGN_IN, SIGN_OUT } from "../actions/types";
 const INITIAL_STATE = {
     isSignedIn:null
 };
@@ -10,10 +11,10 @@ const INITIAL_STATE = {
 //Redux now has an initial value
 export default (state=INITIAL_STATE, action) =>{
     switch (action.type){
-        case 'SIGN_IN':
+        case SIGN_IN:
             // the spread syntax allows us to update or modify a property inside of it
             return { ...state, isSignedin: true}
-        case 'SIGN_OUT':
+        case SIGN_OUT:
             return { ...state, isSignedin: false}
 
         default:
