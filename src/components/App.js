@@ -1,10 +1,10 @@
 import ReactDOM from 'react-dom';
 import {BrowserRouter, Route} from 'react-router-dom';
-import StreamCreate from './streams/StreamShow';
+import StreamCreate from './streams/StreamCreate';
 import StreamDelete from './streams/StreamDelete';
 import StreamShow from './streams/StreamShow';
-import StreamList from './streams/StreamShow';
-import StreamEdit from './streams/StreamShow';
+import StreamList from './streams/StreamList';
+import StreamEdit from './streams/StreamEdit';
 import Header from './Header';
 
 
@@ -24,9 +24,6 @@ const  App = ()=> {
             <Route path="/streams/show" exact component={StreamShow}/>
         </div>
     </BrowserRouter>
-
-
-        
     </div>)
 }
 
