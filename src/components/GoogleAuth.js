@@ -1,4 +1,4 @@
-
+//gapi documentation
 import React from 'react';
 class GoogleAuth extends React.Component {
 //null because we dont know if the user is signed in or not when the app loads
@@ -38,11 +38,19 @@ class GoogleAuth extends React.Component {
     //helper method to let us know whether the user isgned in or not 
   renderAuthButton() {
     if (this.state.isSignedIn === null) {
-      return <div>I dont know if we are signed in</div>;
+      return null;
     } else if (this.state.isSignedIn) {
-      return <div>I am signed in!</div>;
+      return (<button className="ui red google button">
+          <i className=" google icon">
+            Sign Out
+          </i>
+          </button>);
     } else {
-      return <div>I am not signed in</div>;
+        return (<button className="ui red google button">
+        <i className=" google icon">
+          Sign In
+        </i>
+        </button>);
     }
   }
 
