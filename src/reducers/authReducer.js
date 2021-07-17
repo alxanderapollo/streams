@@ -15,13 +15,11 @@ export default (state=INITIAL_STATE, action) =>{
         case SIGN_IN:
             // the spread syntax allows us to update or modify a property inside of it
             //when the user signs in update the payload property 
-            return { ...state, isSignedin: true, userID:action.payload}
+            return { ...state, isSignedIn: true, userId:action.payload}
         case SIGN_OUT:
             //when a user signs in out reset the payload property back to null 
-            return { ...state, isSignedin: false, userID: null}
-
+            return { ...state, isSignedIn: false, userId: null}
         default:
             return state;
     }
-
 }

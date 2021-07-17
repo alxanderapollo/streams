@@ -45,14 +45,8 @@ class GoogleAuth extends React.Component {
     }
 
     //button Functionality
-    onSignInClick = () => {
-        this.auth.signIn();
-
-    }
-    onSignOutClick = () => {
-        this.auth.signOut();
-        
-    }
+    onSignInClick = () => {this.auth.signIn();}
+    onSignOutClick = () => {this.auth.signOut();}
 
     //helper method to let us know whether the user isgned in or not 
   renderAuthButton() {
@@ -73,17 +67,16 @@ class GoogleAuth extends React.Component {
         </button>);
     }
   }
-
   render() {
     return <div>{this.renderAuthButton()}</div>;
   }
 }
-const mapStateToProps = (state) => {
-  return {isSignedIn:state.auth.isSignedIn}
-
+const mapStateToProps = state => {
+  return { isSignedIn: state.auth.isSignedIn };
 }
-
-
 //connecting our actions to this component
 //since we currently dont have a map to state function we pass null
-export default connect(mapStateToProps, {signIn, signOut})(GoogleAuth);
+export default connect(
+  mapStateToProps,
+  { signIn, signOut }
+)(GoogleAuth);
