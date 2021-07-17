@@ -2,7 +2,8 @@
 //to determine whether the user is signed in or not
 import { SIGN_IN, SIGN_OUT } from "../actions/types";
 const INITIAL_STATE = {
-    isSignedIn:null
+    isSignedIn:null,
+    userID: null
 };
 
 
@@ -13,9 +14,11 @@ export default (state=INITIAL_STATE, action) =>{
     switch (action.type){
         case SIGN_IN:
             // the spread syntax allows us to update or modify a property inside of it
-            return { ...state, isSignedin: true}
+            //when the user signs in update the payload property 
+            return { ...state, isSignedin: true, userID:action.payload}
         case SIGN_OUT:
-            return { ...state, isSignedin: false}
+            //when a user signs in out reset the payload property back to null 
+            return { ...state, isSignedin: false, userID: null}
 
         default:
             return state;

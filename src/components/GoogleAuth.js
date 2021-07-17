@@ -31,12 +31,13 @@ class GoogleAuth extends React.Component {
     });
   } 
   //called everytime the user status changes
-    onAuthChange = (isSignedIn) => {
+    onAuthChange = isSignedIn => {
         //this.auth object is what refrences the users object
         // this.setState({ isSignedIn:this.auth.isSignedIn.get()})
         //Redux
         if(isSignedIn){
-            this.props.signIn();
+            //gets the id of the user that is signed in
+            this.props.signIn(this.auth.currentUser.get().getId());
         }else{
             this.props.signOut();
         }
