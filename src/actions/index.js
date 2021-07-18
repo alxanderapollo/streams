@@ -21,8 +21,10 @@ export const signOut = () => {
     };
 };
 //everytime a user makes a request to a steam itll be posted to this end point
-export const createStream = formValues => async dispatch => {
-    const response = await streams.post('/streams', formValues);
+//pullng out the id to determine whose stream belong to which user
+export const createStream = formValues => async (dispatch,getState) => {
+    const {userId} = getState().auth;
+    const response = await streams.post('/streams', {...formValues,userId});
     dispatch({type: CREATE_STREAM, payload: response.data})
 };
 
