@@ -49,6 +49,8 @@ export const deleteStream = (id) => async dispatch => {
     await streams.delete(`/streams/${id}` );
     dispatch({type: DELETE_STREAM, payload: id})
 };
+    //returns a new obj, the second param will access an id and override it with a new id
+return{...state, [action.payload.id]:action.payload}
 
 
   
